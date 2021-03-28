@@ -5,10 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:flutt_chat/screens/chat_screen.dart';
 import 'package:flutt_chat/screens/users_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  FacebookAuth.instance.webInitialize(
+    appId: "462933764757668",
+    cookie: true,
+    xfbml: true,
+    version: "v10.0",
+  );
   runApp(MyApp());
 }
 

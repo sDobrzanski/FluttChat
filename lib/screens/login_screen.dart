@@ -2,8 +2,18 @@ import 'package:flutt_chat/widgets/animating_name.dart';
 import 'package:flutt_chat/widgets/login_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutt_chat/widgets/input_text_field.dart';
+import 'package:flutt_chat/services/auth_service.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  String email;
+  String password;
+  var _authService = AuthService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +38,11 @@ class LoginScreen extends StatelessWidget {
                 hintText: 'Enter you email',
                 isPassword: false,
                 icon: Icons.email,
-                onChanged: (value) {}),
+                onChanged: (value) {
+                  setState(() {
+                    email = value;
+                  });
+                }),
             SizedBox(
               height: 15,
             ),
@@ -36,15 +50,25 @@ class LoginScreen extends StatelessWidget {
                 hintText: 'Enter you password',
                 isPassword: true,
                 icon: Icons.lock,
-                onChanged: (value) {}),
+                onChanged: (value) {
+                  setState(() {
+                    password = value;
+                  });
+                }),
             SizedBox(
               height: 30,
             ),
             LoginButton(
               text: 'Login',
               color: Colors.purpleAccent,
-              onPressed: () {
-                Navigator.pushNamed(context, '/users');
+              onPressed: () async {
+                bool loggedIn;
+                loggedIn = await _authService.login(email, password);
+                if (loggedIn == true) {
+                  Navigator.pushNamed(context, '/users');
+                } else {
+                  print('Not able to log in');
+                }
               },
             ),
           ],

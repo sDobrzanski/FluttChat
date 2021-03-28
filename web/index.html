@@ -28,8 +28,10 @@
 
   <title>flutt_chat</title>
   <link rel="manifest" href="manifest.json">
+  <meta name="google-signin-client_id" content="855163286447-ga6ig625asghrf9fmm4e845pcs7jn3bk.apps.googleusercontent.com">
 </head>
 <body>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
@@ -41,7 +43,7 @@
     }
   </script>
   <script src="main.dart.js" type="application/javascript"></script>
-
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
   <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-firestore.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-auth.js"></script>
@@ -64,6 +66,28 @@
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
+</script>
+
+  <script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '462933764757668',
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v10.0'
+    });
+
+    FB.AppEvents.logPageView();
+
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
 </script>
 </body>
 </html>

@@ -2,8 +2,23 @@ import 'package:flutt_chat/widgets/animating_name.dart';
 import 'package:flutt_chat/widgets/login_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutt_chat/widgets/input_text_field.dart';
+import 'package:flutt_chat/services/auth_service.dart';
+import 'package:flutt_chat/services/firestore_service.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
+  @override
+  _RegisterScreenState createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  String email;
+
+  String password;
+  String repeatedPassword;
+  var _authService = AuthService();
+
+  var _firestoreService = FirestoreService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +43,11 @@ class RegisterScreen extends StatelessWidget {
                 hintText: 'Enter you email',
                 isPassword: false,
                 icon: Icons.email,
-                onChanged: (value) {}),
+                onChanged: (value) {
+                  setState(() {
+                    email = value;
+                  });
+                }),
             SizedBox(
               height: 15,
             ),
@@ -36,22 +55,38 @@ class RegisterScreen extends StatelessWidget {
                 hintText: 'Enter you password',
                 isPassword: true,
                 icon: Icons.lock,
-                onChanged: (value) {}),
+                onChanged: (value) {
+                  setState(() {
+                    password = value;
+                  });
+                }),
             SizedBox(
               height: 15,
             ),
             InputTextField(
                 hintText: 'Repeat you password',
                 isPassword: true,
-                onChanged: (value) {}),
+                onChanged: (value) {
+                  setState(() {
+                    setState(() {
+                      repeatedPassword = value;
+                    });
+                  });
+                }),
             SizedBox(
               height: 30,
             ),
             LoginButton(
               text: 'Register',
               color: Colors.purpleAccent,
-              onPressed: () {
-                Navigator.pushNamed(context, '/chat');
+              onPressed: () async {
+                var newUser = await _authService.register(email, password);
+                if (newUser != null) {
+                  await _firestoreService.saveUser(newUser.user.uid, email);
+                  Navigator.pushNamed(context, '/users');
+                } else {
+                  print('Couldnt register');
+                }
               },
             ),
           ],

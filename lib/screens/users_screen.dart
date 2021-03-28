@@ -1,11 +1,13 @@
 import 'package:flutt_chat/widgets/custom_search_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutt_chat/widgets/messages_bar_label.dart';
+import 'package:flutt_chat/widgets/custom_app_bar.dart';
 
 class UsersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(),
       body: SafeArea(
         child: Row(
           children: [
