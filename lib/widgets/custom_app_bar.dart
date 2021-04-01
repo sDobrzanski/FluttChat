@@ -11,6 +11,9 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       shadowColor: Colors.purpleAccent,
       title: Row(
         children: [
+          SizedBox(
+            width: 32,
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: IconButton(
@@ -31,6 +34,17 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                 ),
                 onPressed: () {
                   Navigator.pushNamed(context, '/chat');
+                }),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: IconButton(
+                icon: Icon(
+                  Icons.person,
+                  size: 32,
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/profile');
                 }),
           ),
         ],

@@ -1,5 +1,6 @@
 import 'package:flutt_chat/screens/login_screen.dart';
 import 'package:flutt_chat/screens/main_screen.dart';
+import 'package:flutt_chat/screens/profile_screen.dart';
 import 'package:flutt_chat/screens/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutt_chat/screens/chat_screen.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         '/register': (context) => RegisterScreen(),
         '/users': (context) => UsersScreen(),
         '/chat': (context) => ChatScreen(),
+        '/profile': (context) => ProfileScreen(),
       },
     );
   }
