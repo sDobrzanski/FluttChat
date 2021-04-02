@@ -12,18 +12,25 @@ class FirestoreService {
   Future<void> saveUser(String uid, String email) async {
     //String name = email.substring(0, email.indexOf('@')); jakbym chcial obciac mail do @
     try {
-      await _firestore.collection('Users').doc('$uid').set({
-        'EMAIL': email,
-        'SEARCHKEY': email[0].toUpperCase(),
-        'PHOTOURL': kEmptyUserPhoto
-      });
+      await _firestore
+          .collection('Users')
+          .doc('$uid')
+          .set({'EMAIL': email, 'PHOTOURL': kEmptyUserPhoto});
     } catch (e) {
       print(e);
     }
   }
 
-  Future<void> getUsers() async {
-    return _firestore.collection('Users');
+  Stream getUsers() {
+    return _firestore.collection('Users').limit(10).snapshots();
+  }
+
+  Stream searchUsers(String searchKey) {
+    return _firestore
+        .collection('Users')
+        .where('EMAIL', isGreaterThanOrEqualTo: searchKey)
+        .where('EMAIL', isLessThan: searchKey + 'z')
+        .snapshots();
   }
 
   Future<void> uploadToStorage(String uid) async {

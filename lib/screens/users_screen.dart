@@ -1,9 +1,21 @@
+import 'package:flutt_chat/services/firestore_service.dart';
 import 'package:flutt_chat/widgets/custom_search_field.dart';
+import 'package:flutt_chat/widgets/users_stream.dart';
 import 'package:flutter/material.dart';
 import 'package:flutt_chat/widgets/messages_bar_label.dart';
 import 'package:flutt_chat/widgets/custom_app_bar.dart';
+import 'package:flutt_chat/widgets/searched_users_stream.dart';
 
-class UsersScreen extends StatelessWidget {
+class UsersScreen extends StatefulWidget {
+  @override
+  _UsersScreenState createState() => _UsersScreenState();
+}
+
+class _UsersScreenState extends State<UsersScreen> {
+  final _firestoreService = FirestoreService();
+  List searchedUsers;
+  bool isSearched = false;
+  Stream usersStream;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,8 +50,19 @@ class UsersScreen extends StatelessWidget {
                     CustomSearchField(
                       icon: Icons.search,
                       onPressed: () {},
-                      onChanged: () {},
-                    )
+                      onChanged: (value) {
+                        setState(() {
+                          if (value.isNotEmpty) isSearched = true;
+                          usersStream = _firestoreService.searchUsers(value);
+                        });
+                      },
+                    ),
+                    Expanded(
+                        child: !isSearched
+                            ? UsersStream()
+                            : SearchedUsersStream(
+                                stream: usersStream,
+                              ))
                   ],
                 ),
               ),

@@ -18,7 +18,8 @@ class CustomSearchField extends StatelessWidget {
             icon,
             color: Colors.purple,
           ),
-          onPressed: onPressed,
+          onPressed:
+              onPressed, //TODO mozna usunac, bo uzytkownicy sa wyszukiwani automatycznie
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(30.0)),
