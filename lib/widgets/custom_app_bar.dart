@@ -12,7 +12,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       title: Row(
         children: [
           SizedBox(
-            width: 32,
+            width: 60,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -23,17 +23,6 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                 ),
                 onPressed: () {
                   Navigator.pushNamed(context, '/users');
-                }),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: IconButton(
-                icon: Icon(
-                  Icons.mail_outline,
-                  size: 32,
-                ),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/chat');
                 }),
           ),
           Padding(

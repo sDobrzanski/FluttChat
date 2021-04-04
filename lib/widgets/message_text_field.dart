@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 
 class MessageTextField extends StatelessWidget {
   final Function onChanged;
-  MessageTextField({this.onChanged});
+  final TextEditingController textEditingController;
+  MessageTextField({this.onChanged, this.textEditingController});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: TextField(
+          controller: textEditingController,
           textAlign: TextAlign.center,
           cursorColor: Colors.purple,
           keyboardType: TextInputType.multiline,

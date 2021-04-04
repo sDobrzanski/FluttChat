@@ -4,6 +4,7 @@ import 'package:flutt_chat/widgets/login_button.dart';
 import 'package:flutt_chat/widgets/animating_name.dart';
 import 'package:flutt_chat/services/auth_service.dart';
 import 'package:flutt_chat/services/firestore_service.dart';
+import 'package:flutt_chat/widgets/custom_text_button.dart';
 
 class MainScreen extends StatelessWidget {
   final _authService = AuthService();
@@ -82,6 +83,12 @@ class MainScreen extends StatelessWidget {
                   }
                 },
               ),
+              CustomTextButton(
+                onPressed: () {
+                  Navigator.popAndPushNamed(context, '/resetPassword');
+                },
+                text: 'Forget a password?',
+              )
             ],
           ),
         ],

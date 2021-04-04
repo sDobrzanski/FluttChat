@@ -14,7 +14,8 @@ class AuthService {
       return true;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
+        print(
+            'Wrong password provided for that user.'); //TODO Zrobic wylapywanie bledow
       }
       return false;
     }
@@ -28,6 +29,18 @@ class AuthService {
       print(e);
       return null;
     }
+  }
+
+  Future<String> forgotPassword(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+      return 'Email sent.';
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'invalid-email') {
+        return 'The email address is badly formatted.';
+      }
+    }
+    return 'Such email doesn\'t exist.';
   }
 
   Future<void> signOut() async {

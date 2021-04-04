@@ -4,10 +4,13 @@ import 'message_text_field.dart';
 class ChatWindow extends StatelessWidget {
   final Function onChanged;
   final Function onButtonPressed;
-  ChatWindow({
-    this.onChanged,
-    this.onButtonPressed,
-  });
+  final Widget messagesList;
+  final TextEditingController textEditingController;
+  ChatWindow(
+      {this.onChanged,
+      this.onButtonPressed,
+      this.messagesList,
+      this.textEditingController});
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +18,7 @@ class ChatWindow extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
+          messagesList,
           Padding(
             padding: const EdgeInsets.only(top: 15),
             child: Divider(
@@ -30,6 +34,7 @@ class ChatWindow extends StatelessWidget {
                 Expanded(
                   flex: 3,
                   child: MessageTextField(
+                    textEditingController: textEditingController,
                     onChanged: (value) => onChanged(value),
                   ),
                 ),

@@ -49,11 +49,11 @@ class _UsersScreenState extends State<UsersScreen> {
                   children: [
                     CustomSearchField(
                       icon: Icons.search,
-                      onPressed: () {},
                       onChanged: (value) {
                         setState(() {
                           if (value.isNotEmpty) isSearched = true;
-                          usersStream = _firestoreService.searchUsers(value);
+                          usersStream =
+                              _firestoreService.getSearchedUsers(value);
                         });
                       },
                     ),

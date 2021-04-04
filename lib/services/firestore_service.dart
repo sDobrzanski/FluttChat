@@ -25,12 +25,25 @@ class FirestoreService {
     return _firestore.collection('Users').limit(10).snapshots();
   }
 
-  Stream searchUsers(String searchKey) {
+  Stream getSearchedUsers(String searchKey) {
     return _firestore
         .collection('Users')
         .where('EMAIL', isGreaterThanOrEqualTo: searchKey)
         .where('EMAIL', isLessThan: searchKey + 'z')
         .snapshots();
+  }
+
+  Stream getMessages(String myId, String userId) {
+    try {
+      return _firestore
+          .collection('Messages')
+          .doc(myId)
+          .collection(userId)
+          .orderBy('TIMESTAMP')
+          .snapshots();
+    } catch (e) {
+      throw (e);
+    }
   }
 
   Future<void> uploadToStorage(String uid) async {
@@ -82,5 +95,28 @@ class FirestoreService {
       }
     }
     return photoUrl;
+  }
+
+  Future<void> addMessage(String loggedInUserId, String toUserId,
+      String currentEmail, String message) async {
+    await _firestore
+        .collection('Messages')
+        .doc(loggedInUserId)
+        .collection(toUserId)
+        .add({
+      'SENDER': currentEmail,
+      'TEXT': message,
+      'TIMESTAMP': new DateTime.now(),
+    });
+
+    await _firestore
+        .collection('Messages')
+        .doc(toUserId)
+        .collection(loggedInUserId)
+        .add({
+      'SENDER': currentEmail,
+      'TEXT': message,
+      'TIMESTAMP': new DateTime.now(),
+    });
   }
 }

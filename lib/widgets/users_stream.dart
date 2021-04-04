@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutt_chat/services/firestore_service.dart';
 import 'package:flutt_chat/widgets/user_card.dart';
+import 'package:flutt_chat/screens/chat_screen.dart';
 
 class UsersStream extends StatelessWidget {
   final _firestoreService = FirestoreService();
@@ -22,7 +23,14 @@ class UsersStream extends StatelessWidget {
             return UserCard(
               email: document.data()['EMAIL'],
               userPic: NetworkImage(document.data()['PHOTOURL']),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ChatScreen(
+                              userToId: document.id,
+                            )));
+              },
             );
           }).toList(),
         );

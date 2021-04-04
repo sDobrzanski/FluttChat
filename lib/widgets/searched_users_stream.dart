@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutt_chat/widgets/user_card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutt_chat/screens/chat_screen.dart';
 
 class SearchedUsersStream extends StatelessWidget {
   final Stream stream;
@@ -24,7 +25,14 @@ class SearchedUsersStream extends StatelessWidget {
             return UserCard(
               email: document.data()['EMAIL'],
               userPic: NetworkImage(document.data()['PHOTOURL']),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ChatScreen(
+                              userToId: document.id,
+                            )));
+              },
             );
           }).toList(),
         );

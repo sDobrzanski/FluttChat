@@ -2,6 +2,7 @@ import 'package:flutt_chat/screens/login_screen.dart';
 import 'package:flutt_chat/screens/main_screen.dart';
 import 'package:flutt_chat/screens/profile_screen.dart';
 import 'package:flutt_chat/screens/register_screen.dart';
+import 'package:flutt_chat/screens/reset_password_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutt_chat/screens/chat_screen.dart';
 import 'package:flutt_chat/screens/users_screen.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => MainScreen(),
         '/login': (context) => LoginScreen(),
         '/register': (context) => RegisterScreen(),
+        '/resetPassword': (context) => ResetPasswordScreen(),
         '/users': (context) => UsersScreen(),
         '/chat': (context) => ChatScreen(),
         '/profile': (context) => ProfileScreen(),
