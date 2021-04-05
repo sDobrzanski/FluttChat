@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutt_chat/services/auth_service.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
-  var _authService = AuthService();
+  final _authService = AuthService();
   @override
   Widget build(BuildContext context) {
     return AppBar(

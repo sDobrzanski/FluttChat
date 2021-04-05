@@ -4,7 +4,6 @@ import 'package:flutt_chat/screens/profile_screen.dart';
 import 'package:flutt_chat/screens/register_screen.dart';
 import 'package:flutt_chat/screens/reset_password_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutt_chat/screens/chat_screen.dart';
 import 'package:flutt_chat/screens/users_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -34,7 +33,6 @@ class MyApp extends StatelessWidget {
         '/register': (context) => RegisterScreen(),
         '/resetPassword': (context) => ResetPasswordScreen(),
         '/users': (context) => UsersScreen(),
-        '/chat': (context) => ChatScreen(),
         '/profile': (context) => ProfileScreen(),
       },
     );

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'message_text_field.dart';
+import 'text_fields/message_text_field.dart';
 
 class ChatWindow extends StatelessWidget {
   final Function onChanged;

@@ -1,5 +1,5 @@
 import 'package:flutt_chat/widgets/custom_app_bar.dart';
-import 'package:flutt_chat/widgets/login_button.dart';
+import 'package:flutt_chat/widgets/buttons/login_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutt_chat/services/firestore_service.dart';
 import 'package:flutt_chat/services/auth_service.dart';

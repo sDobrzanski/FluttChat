@@ -1,17 +1,19 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutt_chat/widgets/user_card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:flutt_chat/services/firestore_service.dart';
+import 'package:flutt_chat/widgets/user_card.dart';
 import 'package:flutt_chat/screens/chat_screen.dart';
 
-class SearchedUsersStream extends StatelessWidget {
-  final Stream stream;
-  SearchedUsersStream({this.stream});
-
+class UsersStream extends StatelessWidget {
+  final _firestoreService = FirestoreService();
+  final String myId;
+  final String myEmail;
+  final String myPhotoUrl;
+  UsersStream({this.myId, this.myEmail, this.myPhotoUrl});
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: stream,
+      stream: _firestoreService.getUsers(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
@@ -25,13 +27,20 @@ class SearchedUsersStream extends StatelessWidget {
             return UserCard(
               email: document.data()['EMAIL'],
               userPic: NetworkImage(document.data()['PHOTOURL']),
-              onPressed: () {
+              onPressed: () async {
+                await _firestoreService.saveChatUser(
+                    myId,
+                    myEmail,
+                    myPhotoUrl,
+                    document.id,
+                    document.data()['EMAIL'],
+                    document.data()['PHOTOURL']);
+
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ChatScreen(
-                              userToId: document.id,
-                            )));
+                        builder: (context) =>
+                            ChatScreen(userToId: document.id)));
               },
             );
           }).toList(),

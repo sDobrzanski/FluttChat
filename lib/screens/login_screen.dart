@@ -1,7 +1,7 @@
 import 'package:flutt_chat/widgets/animating_name.dart';
-import 'package:flutt_chat/widgets/login_button.dart';
+import 'package:flutt_chat/widgets/buttons/login_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutt_chat/widgets/input_text_field.dart';
+import 'package:flutt_chat/widgets/text_fields/input_text_field.dart';
 import 'package:flutt_chat/services/auth_service.dart';
 
 class LoginScreen extends StatefulWidget {

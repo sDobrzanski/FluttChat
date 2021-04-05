@@ -21,6 +21,23 @@ class FirestoreService {
     }
   }
 
+  Future<void> saveChatUser(String myId, String myEmail, String myPhotoUrl,
+      String userId, String email, String photoUrl) async {
+    //TODO zmienic te zmienne w jednego usera
+    try {
+      await _firestore
+          .collection(myId)
+          .doc(userId)
+          .set({'EMAIL': email, 'PHOTOURL': photoUrl});
+      await _firestore.collection(userId).doc(myId).set({
+        'EMAIL': myEmail,
+        'PHOTOURL': myPhotoUrl != null ? myPhotoUrl : kEmptyUserPhoto
+      });
+    } catch (e) {
+      throw (e);
+    }
+  }
+
   Stream getUsers() {
     return _firestore.collection('Users').limit(10).snapshots();
   }
@@ -41,6 +58,14 @@ class FirestoreService {
           .collection(userId)
           .orderBy('TIMESTAMP')
           .snapshots();
+    } catch (e) {
+      throw (e);
+    }
+  }
+
+  Stream getChats(String myId) {
+    try {
+      return _firestore.collection(myId).snapshots();
     } catch (e) {
       throw (e);
     }

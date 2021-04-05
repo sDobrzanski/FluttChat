@@ -1,10 +1,11 @@
-import 'package:flutt_chat/widgets/messages_stream.dart';
+import 'package:flutt_chat/streams/messages_stream.dart';
 import 'package:flutter/material.dart';
 import 'package:flutt_chat/widgets/chat_window.dart';
 import 'package:flutt_chat/widgets/messages_bar_label.dart';
 import 'package:flutt_chat/widgets/custom_app_bar.dart';
 import 'package:flutt_chat/services/firestore_service.dart';
 import 'package:flutt_chat/services/auth_service.dart';
+import 'package:flutt_chat/streams/chats_stream.dart';
 
 class ChatScreen extends StatefulWidget {
   final String userToId;
@@ -44,6 +45,9 @@ class _ChatScreenState extends State<ChatScreen> {
                       height: 1,
                       thickness: 1,
                       color: Colors.black,
+                    ),
+                    Expanded(
+                      child: ChatsStream(myId: currentUserId),
                     ),
                   ],
                 ),
