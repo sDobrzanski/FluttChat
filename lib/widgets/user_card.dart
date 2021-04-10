@@ -8,8 +8,8 @@ class UserCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 200),
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.22,
       child: Card(
         color: Colors.purpleAccent[400],
         elevation: 5,

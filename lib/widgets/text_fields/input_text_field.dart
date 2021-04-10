@@ -8,8 +8,8 @@ class InputTextField extends StatelessWidget {
   final Function onChanged;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 550.0),
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.35,
       child: TextField(
         onChanged: (value) => onChanged(value),
         textAlign: TextAlign.center,

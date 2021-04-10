@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutt_chat/widgets/text_fields/input_text_field.dart';
 import 'package:flutt_chat/services/auth_service.dart';
 import 'package:flutt_chat/services/firestore_service.dart';
+import 'package:flutt_chat/widgets/custom_alert_dialog.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -81,11 +82,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
               color: Colors.purpleAccent,
               onPressed: () async {
                 var newUser = await _authService.register(email, password);
+                FocusScope.of(context).requestFocus(FocusNode());
                 if (newUser != null) {
                   await _firestoreService.saveUser(newUser.user.uid, email);
                   Navigator.pushNamed(context, '/users');
                 } else {
-                  print('Couldnt register');
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) => CustomAlertDialog(
+                            message: 'Couldn\'t register.',
+                          ));
                 }
               },
             ),

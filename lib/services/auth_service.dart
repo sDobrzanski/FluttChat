@@ -8,16 +8,16 @@ class AuthService {
   final _facebook = FacebookAuth.instance;
   User get user => _auth.currentUser;
 
-  Future<bool> login(String email, String password) async {
+  Future<String> login(String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
-      return true;
+      return 'Logged In';
     } on FirebaseAuthException catch (e) {
       if (e.code == 'wrong-password') {
-        print(
-            'Wrong password provided for that user.'); //TODO Zrobic wylapywanie bledow
+        return 'Wrong password provided for that user.';
+      } else {
+        return 'Error: ${e.code}';
       }
-      return false;
     }
   }
 
@@ -38,9 +38,10 @@ class AuthService {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'invalid-email') {
         return 'The email address is badly formatted.';
+      } else {
+        return 'Error: ${e.code}';
       }
     }
-    return 'Such email doesn\'t exist.';
   }
 
   Future<void> signOut() async {

@@ -3,6 +3,7 @@ import 'package:flutt_chat/widgets/buttons/login_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutt_chat/widgets/text_fields/input_text_field.dart';
 import 'package:flutt_chat/services/auth_service.dart';
+import 'package:flutt_chat/widgets/custom_alert_dialog.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -12,6 +13,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   String email;
   String password;
+  String response;
   var _authService = AuthService();
 
   @override
@@ -62,12 +64,18 @@ class _LoginScreenState extends State<LoginScreen> {
               text: 'Login',
               color: Colors.purpleAccent,
               onPressed: () async {
-                bool loggedIn;
-                loggedIn = await _authService.login(email, password);
-                if (loggedIn == true) {
+                await _authService
+                    .login(email, password)
+                    .then((value) => response = value);
+                FocusScope.of(context).requestFocus(FocusNode());
+                if (response == 'Logged In') {
                   Navigator.pushNamed(context, '/users');
                 } else {
-                  print('Not able to log in');
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) => CustomAlertDialog(
+                            message: response,
+                          ));
                 }
               },
             ),

@@ -8,8 +8,9 @@ class UserChatCard extends StatelessWidget {
   UserChatCard({this.email, this.userPic, this.onPressed, this.message});
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10),
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.1,
+      height: MediaQuery.of(context).size.width * 0.08,
       child: GestureDetector(
         child: Card(
           color: Colors.purpleAccent[400],
@@ -20,28 +21,30 @@ class UserChatCard extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.all(5.0),
-                    child: CircleAvatar(
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    CircleAvatar(
                       backgroundColor: Colors.transparent,
                       backgroundImage: userPic,
-                      radius: 45,
+                      radius: MediaQuery.of(context).size.width * 0.01,
                     ),
-                  ),
-                  Text(
-                    email,
-                    style: TextStyle(fontSize: 20, color: Colors.white),
-                  ),
-                ],
+                    Text(
+                      email,
+                      style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.width * 0.014,
+                          color: Colors.white),
+                    ),
+                  ],
+                ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 12.0),
+              Expanded(
                 child: Text(
                   message,
-                  style: TextStyle(color: Colors.white, fontSize: 16),
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: MediaQuery.of(context).size.width * 0.012),
                 ),
               )
             ],
