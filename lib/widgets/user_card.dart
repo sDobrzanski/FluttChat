@@ -11,7 +11,7 @@ class UserCard extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width * 0.22,
       child: Card(
-        color: Colors.purpleAccent[400],
+        color: Colors.deepPurpleAccent[100],
         elevation: 5,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutt_chat/services/auth_service.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   final _authService = AuthService();
@@ -35,6 +36,13 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                 onPressed: () {
                   Navigator.pushNamed(context, '/profile');
                 }),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 10.0, left: 5.0),
+            child: Text(
+              'Welcome ${_authService.user.email}!',
+              style: GoogleFonts.teko(fontSize: 22, color: Colors.white),
+            ),
           ),
         ],
       ),

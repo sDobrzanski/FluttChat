@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutt_chat/services/firestore_service.dart';
 import 'package:flutt_chat/services/auth_service.dart';
 import 'package:flutt_chat/constants.dart';
+import 'package:flutt_chat/widgets/custom_alert_dialog.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -12,10 +13,10 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final _firestoreService = FirestoreService();
-
   final _authService = AuthService();
   String mainPhotoUrl;
   String uid;
+  String response;
   bool isLoading = false;
 
   getPhoto() async {
@@ -78,7 +79,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 LoginButton(
                   text: 'Change password',
                   color: Colors.purple,
-                  onPressed: () {}, //TBD
+                  onPressed: () async {
+                    await _authService
+                        .forgotPassword(_authService.user.email)
+                        .then((value) {
+                      setState(() {
+                        response = value;
+                      });
+                    });
+                    FocusScope.of(context).requestFocus(FocusNode());
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) => CustomAlertDialog(
+                              message: response,
+                            ));
+                  },
                 ),
               ],
             ),

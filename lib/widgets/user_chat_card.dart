@@ -28,7 +28,7 @@ class UserChatCard extends StatelessWidget {
                     CircleAvatar(
                       backgroundColor: Colors.transparent,
                       backgroundImage: userPic,
-                      radius: MediaQuery.of(context).size.width * 0.01,
+                      radius: MediaQuery.of(context).size.width * 0.02,
                     ),
                     Text(
                       email,

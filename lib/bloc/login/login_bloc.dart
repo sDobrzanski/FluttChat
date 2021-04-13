@@ -2,19 +2,24 @@ import 'login_event.dart';
 import 'login_state.dart';
 import 'package:flutt_chat/services/auth_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'authentication_bloc.dart';
-import 'authentication_event.dart';
+import '../authentication/authentication_bloc.dart';
+import '../authentication/authentication_event.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutt_chat/services/firestore_service.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final AuthenticationBloc _authenticationBloc;
   final AuthService _authService;
+  final FirestoreService _firestoreService;
 
-  LoginBloc(AuthenticationBloc authenticationBloc, AuthService authService)
+  LoginBloc(AuthenticationBloc authenticationBloc, AuthService authService,
+      FirestoreService firestoreService)
       : assert(authenticationBloc != null),
         assert(authService != null),
+        assert(firestoreService != null),
         _authenticationBloc = authenticationBloc,
         _authService = authService,
+        _firestoreService = firestoreService,
         super(LoginInitial());
 
   @override
@@ -42,6 +47,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         await _authService.register(event.email, event.password);
         final user = _authService.user;
         if (user != null) {
+          await _firestoreService.saveUser(user.uid, user.email);
           _authenticationBloc.add(UserLoggedIn(user: user));
           yield LoginSuccess();
           yield LoginInitial();

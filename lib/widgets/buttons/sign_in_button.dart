@@ -9,7 +9,7 @@ class SignInButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.13,
+      width: MediaQuery.of(context).size.width * 0.12,
       height: MediaQuery.of(context).size.width * 0.02,
       child: OutlinedButton(
         onPressed: onPressed,
