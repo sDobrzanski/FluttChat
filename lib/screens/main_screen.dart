@@ -1,3 +1,4 @@
+import 'package:flutt_chat/screens/login_screen.dart';
 import 'package:flutt_chat/widgets/buttons/sign_in_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutt_chat/widgets/buttons/login_button.dart';
@@ -40,7 +41,8 @@ class MainScreen extends StatelessWidget {
                   text: 'Login',
                   color: Colors.purpleAccent,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/login');
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => LoginScreen()));
                   },
                 ),
                 LoginButton(

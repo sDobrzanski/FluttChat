@@ -2,14 +2,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'authentication_event.dart';
 import 'authentication_state.dart';
 import 'package:flutt_chat/services/auth_service.dart';
+import 'package:flutt_chat/services/firestore_service.dart';
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   final AuthService _authService;
+  final FirestoreService _firestoreService;
 
-  AuthenticationBloc(AuthService authService)
+  AuthenticationBloc(AuthService authService, FirestoreService firestoreService)
       : assert(authService != null),
+        assert(firestoreService != null),
         _authService = authService,
+        _firestoreService = firestoreService,
         super(AuthenticationInitial());
 
   @override

@@ -6,6 +6,7 @@ import '../authentication/authentication_bloc.dart';
 import '../authentication/authentication_event.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutt_chat/services/firestore_service.dart';
+import 'package:flutter/material.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final AuthenticationBloc _authenticationBloc;

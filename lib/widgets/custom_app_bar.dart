@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutt_chat/services/auth_service.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutt_chat/bloc/authentication/authentication_bloc.dart';
+import 'package:flutt_chat/bloc/authentication/authentication_event.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
+  final User user;
+  CustomAppBar({this.user});
   final _authService = AuthService();
   @override
   Widget build(BuildContext context) {
+    final authBloc = BlocProvider.of<AuthenticationBloc>(context);
     return AppBar(
       backgroundColor: Colors.purple[600],
       elevation: 2,
@@ -40,7 +47,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
           Padding(
             padding: const EdgeInsets.only(top: 10.0, left: 5.0),
             child: Text(
-              'Welcome ${_authService.user.email}!',
+              'Welcome ${user.email}!',
               style: GoogleFonts.teko(fontSize: 22, color: Colors.white),
             ),
           ),
@@ -55,7 +62,8 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                 size: 32,
               ),
               onPressed: () async {
-                await _authService.signOut();
+                //await _authService.signOut();
+                authBloc.add(UserLoggedOut());
                 Navigator.popAndPushNamed(context, '/');
               }),
         ),

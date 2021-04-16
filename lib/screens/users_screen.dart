@@ -8,8 +8,11 @@ import 'package:flutt_chat/widgets/messages_bar_label.dart';
 import 'package:flutt_chat/widgets/custom_app_bar.dart';
 import 'package:flutt_chat/streams/searched_users_stream.dart';
 import 'package:flutt_chat/services/auth_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class UsersScreen extends StatefulWidget {
+  final User user;
+  UsersScreen({this.user});
   @override
   _UsersScreenState createState() => _UsersScreenState();
 }
@@ -39,7 +42,9 @@ class _UsersScreenState extends State<UsersScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(),
+      appBar: CustomAppBar(
+        user: widget.user,
+      ),
       body: SafeArea(
         child: Row(
           children: [
