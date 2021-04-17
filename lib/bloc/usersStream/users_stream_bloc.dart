@@ -24,7 +24,7 @@ class UsersStreamBloc extends Bloc<UsersStreamEvent, UsersStreamState> {
 
   Stream<UsersStreamState> _mapRandomUsersToState(
       LoadRandomUsers event) async* {
-    yield SearchedUsersLoading();
+    yield RandomUsersLoading();
     try {
       var stream = _firestoreService.getUsers();
       if (stream != null) {

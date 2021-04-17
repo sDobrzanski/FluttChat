@@ -9,11 +9,12 @@ class UsersStream extends StatelessWidget {
   final String myId;
   final String myEmail;
   final String myPhotoUrl;
-  UsersStream({this.myId, this.myEmail, this.myPhotoUrl});
+  final Stream stream;
+  UsersStream({this.myId, this.myEmail, this.myPhotoUrl, this.stream});
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: _firestoreService.getUsers(),
+      stream: stream, //_firestoreService.getUsers()
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(

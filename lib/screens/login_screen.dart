@@ -1,6 +1,4 @@
-import 'package:firebase/firebase.dart';
 import 'package:flutt_chat/bloc/authentication/authentication_bloc.dart';
-import 'package:flutt_chat/bloc/authentication/authentication_event.dart';
 import 'package:flutt_chat/bloc/login/login_bloc.dart';
 import 'package:flutt_chat/bloc/authentication/authentication_state.dart';
 import 'package:flutt_chat/bloc/login/login_event.dart';
@@ -11,7 +9,6 @@ import 'package:flutt_chat/widgets/buttons/login_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutt_chat/widgets/text_fields/input_text_field.dart';
 import 'package:flutt_chat/services/auth_service.dart';
-import 'package:flutt_chat/widgets/custom_alert_dialog.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutt_chat/screens/users_screen.dart';
 
@@ -21,11 +18,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  String email;
-  String password;
-  String response;
-  var _authService = AuthService();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

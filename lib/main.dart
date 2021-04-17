@@ -1,4 +1,6 @@
 import 'package:flutt_chat/bloc/authentication/authentication_bloc.dart';
+import 'package:flutt_chat/bloc/usersStream/users_stream_bloc.dart';
+import 'package:flutt_chat/bloc/usersStream/users_stream_event.dart';
 import 'package:flutt_chat/bloc/authentication/authentication_state.dart';
 import 'package:flutt_chat/services/firestore_service.dart';
 import 'bloc/authentication/authentication_event.dart';
@@ -28,14 +30,21 @@ void main() async {
       RepositoryProvider(create: (context) => AuthService()),
       RepositoryProvider(create: (context) => FirestoreService()),
     ],
-    child: BlocProvider<AuthenticationBloc>(
-      create: (context) {
-        final authService = RepositoryProvider.of<AuthService>(context);
-        final firestoreService =
-            RepositoryProvider.of<FirestoreService>(context);
-        return AuthenticationBloc(authService, firestoreService)
-          ..add(AppLoaded());
-      },
+    child: MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthenticationBloc>(create: (context) {
+          final authService = RepositoryProvider.of<AuthService>(context);
+          final firestoreService =
+              RepositoryProvider.of<FirestoreService>(context);
+          return AuthenticationBloc(authService, firestoreService)
+            ..add(AppLoaded());
+        }),
+        BlocProvider<UsersStreamBloc>(create: (context) {
+          final firestoreService =
+              RepositoryProvider.of<FirestoreService>(context);
+          return UsersStreamBloc(firestoreService)..add(LoadRandomUsers());
+        }),
+      ],
       child: MyApp(),
     ),
   ));
@@ -51,9 +60,6 @@ class MyApp extends StatelessWidget {
           builder: (context, state) {
             if (state is AuthenticationAuthenticated) {
               return UsersScreen(user: state.user);
-            }
-            if (state is AuthenticationInitial) {
-              return LoginScreen(); //TODO to chyba mozna usunac??
             }
             return MainScreen();
           },
