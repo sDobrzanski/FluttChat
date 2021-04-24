@@ -1,7 +1,7 @@
 import 'package:flutt_chat/bloc/authentication/authentication_bloc.dart';
+import 'package:flutt_chat/bloc/chatsStream/chats_stream_bloc.dart';
+import 'package:flutt_chat/bloc/chatsStream/chats_Stream_event.dart';
 import 'package:flutt_chat/bloc/messages/messages_bloc.dart';
-import 'package:flutt_chat/bloc/messages/messages_event.dart';
-import 'package:flutt_chat/bloc/messages/messages_state.dart';
 import 'package:flutt_chat/bloc/usersStream/users_stream_bloc.dart';
 import 'package:flutt_chat/bloc/usersStream/users_stream_event.dart';
 import 'package:flutt_chat/bloc/authentication/authentication_state.dart';
@@ -52,6 +52,11 @@ void main() async {
               RepositoryProvider.of<FirestoreService>(context);
           return MessagesBloc(firestoreService);
         }),
+        BlocProvider<ChatsStreamBloc>(create: (context) {
+          final firestoreService =
+              RepositoryProvider.of<FirestoreService>(context);
+          return ChatsStreamBloc(firestoreService);
+        }),
       ],
       child: MyApp(),
     ),
@@ -62,11 +67,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final _chatsStreamBloc = BlocProvider.of<ChatsStreamBloc>(context);
     return MaterialApp(
         theme: ThemeData.light().copyWith(accentColor: Color(0xFF7C4DFF)),
         home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
           builder: (context, state) {
             if (state is AuthenticationAuthenticated) {
+              _chatsStreamBloc.add(LoadUsers(id: state.user.uid));
               return UsersScreen(user: state.user);
             }
             return MainScreen();

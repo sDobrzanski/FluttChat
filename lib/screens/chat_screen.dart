@@ -4,13 +4,14 @@ import 'package:flutt_chat/widgets/chat_window.dart';
 import 'package:flutt_chat/widgets/messages_bar_label.dart';
 import 'package:flutt_chat/widgets/custom_app_bar.dart';
 import 'package:flutt_chat/services/firestore_service.dart';
-import 'package:flutt_chat/services/auth_service.dart';
 import 'package:flutt_chat/streams/chats_stream.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutt_chat/bloc/messages/messages_bloc.dart';
 import 'package:flutt_chat/bloc/messages/messages_state.dart';
 import 'package:flutt_chat/bloc/messages/messages_event.dart';
+import 'package:flutt_chat/bloc/chatsStream/chats_stream_bloc.dart';
+import 'package:flutt_chat/bloc/chatsStream/chats_Stream_event.dart';
 
 class ChatScreen extends StatefulWidget {
   final String userToId;
@@ -20,18 +21,19 @@ class ChatScreen extends StatefulWidget {
   _ChatScreenState createState() => _ChatScreenState();
 }
 
+//TODO po ponownym klikniecu w karte po lewej nie laduje czatu
 class _ChatScreenState extends State<ChatScreen> {
-  final _firestoreService = FirestoreService();
-  final _authService = AuthService();
-
   @override
   Widget build(BuildContext context) {
+    final _chatsStreamBloc = BlocProvider.of<ChatsStreamBloc>(context);
     return Scaffold(
       appBar: CustomAppBar(
         user: widget.user,
       ),
       body: SafeArea(child: BlocBuilder<MessagesBloc, MessagesState>(
         builder: (context, state) {
+          _chatsStreamBloc.add(LoadUsers(id: widget.user.uid));
+
           if (state is MessagesLoaded) {
             return Messages(
               user: widget.user,
@@ -42,10 +44,6 @@ class _ChatScreenState extends State<ChatScreen> {
 
           if (state is MessagesError) {
             return Text('${state.error}');
-          }
-
-          if (state is MessagesLoading) {
-            return Text('laduje');
           }
 
           return Center(child: CircularProgressIndicator());
@@ -114,12 +112,10 @@ class _MessagesState extends State<Messages> {
                 message = value;
               },
               onButtonPressed: () {
-                setState(() {
-                  _messagesBloc.add(SendMessage(
-                      user: widget.user,
-                      message: message,
-                      userToId: widget.userToId));
-                });
+                _messagesBloc.add(SendMessage(
+                    user: widget.user,
+                    message: message,
+                    userToId: widget.userToId));
                 msgController.clear();
               },
             ),

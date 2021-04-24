@@ -8,6 +8,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutt_chat/bloc/authentication/authentication_bloc.dart';
 import 'package:flutt_chat/bloc/authentication/authentication_event.dart';
+import 'package:flutt_chat/bloc/chatsStream/chats_stream_bloc.dart';
+import 'package:flutt_chat/bloc/chatsStream/chats_Stream_event.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   final User user;
@@ -16,6 +18,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
     final authBloc = BlocProvider.of<AuthenticationBloc>(context);
     final usersBloc = BlocProvider.of<UsersStreamBloc>(context);
+    final _chatsStreamBloc = BlocProvider.of<ChatsStreamBloc>(context);
     return AppBar(
       backgroundColor: Colors.purple[600],
       elevation: 2,
@@ -34,6 +37,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                 ),
                 onPressed: () {
                   usersBloc.add(LoadRandomUsers());
+                  _chatsStreamBloc.add(LoadUsers(id: user.uid));
                   Navigator.push(
                       context,
                       MaterialPageRoute(

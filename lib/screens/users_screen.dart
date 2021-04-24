@@ -1,6 +1,8 @@
+import 'package:flutt_chat/bloc/chatsStream/chats_stream_bloc.dart';
 import 'package:flutt_chat/bloc/usersStream/users_stream_state.dart';
 import 'package:flutt_chat/services/firestore_service.dart';
 import 'package:flutt_chat/streams/chats_stream.dart';
+import 'package:flutt_chat/bloc/chatsStream/chats_Stream_event.dart';
 import 'package:flutt_chat/widgets/text_fields/custom_search_field.dart';
 import 'package:flutt_chat/streams/users_stream.dart';
 import 'package:flutter/material.dart';
@@ -68,6 +70,7 @@ class Users extends StatefulWidget {
 
 class _UsersState extends State<Users> {
   bool isSearched = false;
+
   @override
   Widget build(BuildContext context) {
     final firestoreService = RepositoryProvider.of<FirestoreService>(context);

@@ -7,12 +7,11 @@ class MessageStream extends StatelessWidget {
   final String myName;
   final Stream stream;
   MessageStream({this.stream, this.myName});
-  final _firestoreService = FirestoreService();
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: stream, //_firestoreService.getMessages(myId, userId)
+      stream: stream,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(

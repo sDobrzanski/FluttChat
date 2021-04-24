@@ -24,5 +24,5 @@ class SendMessage extends MessagesEvent {
   SendMessage(
       {@required this.user, @required this.message, @required this.userToId});
   @override
-  List<Object> get props => [user, userToId, message];
+  List<Object> get props => [user, message, userToId];
 }
