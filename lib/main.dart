@@ -1,4 +1,7 @@
 import 'package:flutt_chat/bloc/authentication/authentication_bloc.dart';
+import 'package:flutt_chat/bloc/messages/messages_bloc.dart';
+import 'package:flutt_chat/bloc/messages/messages_event.dart';
+import 'package:flutt_chat/bloc/messages/messages_state.dart';
 import 'package:flutt_chat/bloc/usersStream/users_stream_bloc.dart';
 import 'package:flutt_chat/bloc/usersStream/users_stream_event.dart';
 import 'package:flutt_chat/bloc/authentication/authentication_state.dart';
@@ -43,6 +46,11 @@ void main() async {
           final firestoreService =
               RepositoryProvider.of<FirestoreService>(context);
           return UsersStreamBloc(firestoreService)..add(LoadRandomUsers());
+        }),
+        BlocProvider<MessagesBloc>(create: (context) {
+          final firestoreService =
+              RepositoryProvider.of<FirestoreService>(context);
+          return MessagesBloc(firestoreService);
         }),
       ],
       child: MyApp(),

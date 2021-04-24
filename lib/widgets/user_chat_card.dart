@@ -4,8 +4,7 @@ class UserChatCard extends StatelessWidget {
   final String email;
   final ImageProvider userPic;
   final Function onPressed;
-  final String message;
-  UserChatCard({this.email, this.userPic, this.onPressed, this.message});
+  UserChatCard({this.email, this.userPic, this.onPressed});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,14 +38,6 @@ class UserChatCard extends StatelessWidget {
                   ],
                 ),
               ),
-              Expanded(
-                child: Text(
-                  message,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: MediaQuery.of(context).size.width * 0.012),
-                ),
-              )
             ],
           ),
         ),

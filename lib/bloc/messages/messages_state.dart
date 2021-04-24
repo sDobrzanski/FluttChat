@@ -15,6 +15,8 @@ class MessagesLoaded extends MessagesState {
   List<Object> get props => [messagesStream];
 }
 
+class MessageSent extends MessagesState {}
+
 class MessagesError extends MessagesState {
   final String error;
 

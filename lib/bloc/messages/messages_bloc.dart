@@ -15,6 +15,9 @@ class MessagesBloc extends Bloc<MessagesEvent, MessagesState> {
     if (event is LoadMessages) {
       yield* _mapMessagesToState(event);
     }
+    if (event is SendMessage) {
+      yield* _mapSendMessageToState(event);
+    }
   }
 
   Stream<MessagesState> _mapMessagesToState(LoadMessages event) async* {
@@ -28,6 +31,15 @@ class MessagesBloc extends Bloc<MessagesEvent, MessagesState> {
       }
     } catch (e) {
       yield MessagesError(error: e);
+    }
+  }
+
+  Stream<MessagesState> _mapSendMessageToState(SendMessage event) async* {
+    try {
+      await _firestoreService.addMessage(
+          event.user.uid, event.userToId, event.user.email, event.message);
+    } catch (e) {
+      yield MessagesError(error: 'Error: $e');
     }
   }
 }

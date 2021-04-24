@@ -1,5 +1,4 @@
 import 'package:flutt_chat/bloc/usersStream/users_stream_state.dart';
-import 'package:flutt_chat/constants.dart';
 import 'package:flutt_chat/services/firestore_service.dart';
 import 'package:flutt_chat/streams/chats_stream.dart';
 import 'package:flutt_chat/widgets/text_fields/custom_search_field.dart';
@@ -8,10 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutt_chat/widgets/messages_bar_label.dart';
 import 'package:flutt_chat/widgets/custom_app_bar.dart';
 import 'package:flutt_chat/streams/searched_users_stream.dart';
-import 'package:flutt_chat/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutt_chat/bloc/usersStream/users_stream_bloc.dart';
-import 'package:flutt_chat/bloc/usersStream/users_stream_state.dart';
 import 'package:flutt_chat/bloc/usersStream/users_stream_event.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -92,7 +89,7 @@ class _UsersState extends State<Users> {
                   ),
                   Expanded(
                     child: ChatsStream(
-                      myId: widget.user.uid,
+                      user: widget.user,
                     ),
                   ),
                 ],
@@ -126,15 +123,11 @@ class _UsersState extends State<Users> {
                   Expanded(
                       child: !isSearched
                           ? UsersStream(
-                              myId: widget.user.uid,
-                              myEmail: widget.user.email,
-                              myPhotoUrl: widget.user.photoURL,
+                              user: widget.user,
                               stream: widget.stream,
                             )
                           : SearchedUsersStream(
-                              myId: widget.user.uid,
-                              myEmail: widget.user.email,
-                              myPhotoUrl: widget.user.photoURL,
+                              user: widget.user,
                               stream: widget.stream,
                             ))
                 ],

@@ -4,16 +4,15 @@ import '../widgets/message_buble.dart';
 import 'package:flutt_chat/services/firestore_service.dart';
 
 class MessageStream extends StatelessWidget {
-  final String myId;
   final String myName;
-  final String userId;
-  MessageStream({this.myId, this.myName, this.userId});
+  final Stream stream;
+  MessageStream({this.stream, this.myName});
   final _firestoreService = FirestoreService();
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: _firestoreService.getMessages(myId, userId),
+      stream: stream, //_firestoreService.getMessages(myId, userId)
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
