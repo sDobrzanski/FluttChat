@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../widgets/message_buble.dart';
-import 'package:flutt_chat/services/firestore_service.dart';
 
 class MessageStream extends StatelessWidget {
   final String myName;

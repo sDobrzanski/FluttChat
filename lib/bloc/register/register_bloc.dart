@@ -28,6 +28,14 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     if (event is RegisterWithEmailButtonPressed) {
       yield* _mapRegisterWithEmailToState(event);
     }
+
+    if (event is SignInWithFacebook) {
+      yield* _mapSignInFacebookToState(event);
+    }
+
+    if (event is SignInWithGoogle) {
+      yield* _mapSignInGoogleToState(event);
+    }
   }
 
   Stream<RegisterState> _mapRegisterWithEmailToState(
@@ -35,6 +43,55 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     yield RegisterLoading();
     try {
       await _authService.register(event.email, event.password);
+      final user = _authService.user;
+      if (user != null) {
+        await _firestoreService.saveUser(user.uid, user.email);
+        _authenticationBloc.add(UserLoggedIn(user: user));
+        yield RegisterSuccess();
+        yield RegisterInitial();
+      } else {
+        yield RegisterFailure(error: 'Something very weird just happened');
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('user not found');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
+    } catch (err) {
+      yield RegisterFailure(error: err.message ?? 'An unknown error occured');
+    }
+  }
+
+  Stream<RegisterState> _mapSignInFacebookToState(
+      SignInWithFacebook event) async* {
+    yield RegisterLoading();
+    try {
+      await _authService.facebookLogin();
+      final user = _authService.user;
+      if (user != null) {
+        await _firestoreService.saveUser(user.uid, user.email);
+        _authenticationBloc.add(UserLoggedIn(user: user));
+        yield RegisterSuccess();
+        yield RegisterInitial();
+      } else {
+        yield RegisterFailure(error: 'Something very weird just happened');
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('user not found');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
+    } catch (err) {
+      yield RegisterFailure(error: err.message ?? 'An unknown error occured');
+    }
+  }
+
+  Stream<RegisterState> _mapSignInGoogleToState(SignInWithGoogle event) async* {
+    yield RegisterLoading();
+    try {
+      await _authService.googleSignIn();
       final user = _authService.user;
       if (user != null) {
         await _firestoreService.saveUser(user.uid, user.email);

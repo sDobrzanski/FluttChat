@@ -2,7 +2,6 @@ import 'package:flutt_chat/bloc/usersStream/users_stream_bloc.dart';
 import 'package:flutt_chat/bloc/usersStream/users_stream_event.dart';
 import 'package:flutt_chat/screens/users_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutt_chat/services/auth_service.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

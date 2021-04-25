@@ -16,3 +16,7 @@ class RegisterWithEmailButtonPressed extends RegisterEvent {
   @override
   List<Object> get props => [email, password];
 }
+
+class SignInWithGoogle extends RegisterEvent {}
+
+class SignInWithFacebook extends RegisterEvent {}

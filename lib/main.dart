@@ -2,6 +2,8 @@ import 'package:flutt_chat/bloc/authentication/authentication_bloc.dart';
 import 'package:flutt_chat/bloc/chatsStream/chats_stream_bloc.dart';
 import 'package:flutt_chat/bloc/chatsStream/chats_Stream_event.dart';
 import 'package:flutt_chat/bloc/messages/messages_bloc.dart';
+import 'package:flutt_chat/bloc/register/register_bloc.dart';
+import 'package:flutt_chat/bloc/resetPassword/reset_password_bloc.dart';
 import 'package:flutt_chat/bloc/usersStream/users_stream_bloc.dart';
 import 'package:flutt_chat/bloc/usersStream/users_stream_event.dart';
 import 'package:flutt_chat/bloc/authentication/authentication_state.dart';
@@ -56,6 +58,17 @@ void main() async {
           final firestoreService =
               RepositoryProvider.of<FirestoreService>(context);
           return ChatsStreamBloc(firestoreService);
+        }),
+        BlocProvider<RegisterBloc>(create: (context) {
+          final firestoreService =
+              RepositoryProvider.of<FirestoreService>(context);
+          final authBloc = BlocProvider.of<AuthenticationBloc>(context);
+          final authService = RepositoryProvider.of<AuthService>(context);
+          return RegisterBloc(authBloc, authService, firestoreService);
+        }),
+        BlocProvider<ResetPasswordBloc>(create: (context) {
+          final authService = RepositoryProvider.of<AuthService>(context);
+          return ResetPasswordBloc(authService);
         }),
       ],
       child: MyApp(),

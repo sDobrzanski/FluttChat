@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutt_chat/services/firestore_service.dart';
 import 'package:flutt_chat/bloc/chatsStream/chats_stream_bloc.dart';
-import 'package:flutt_chat/bloc/chatsStream/chats_Stream_event.dart';
 import 'package:flutt_chat/bloc/chatsStream/chats_stream_state.dart';
 import 'package:flutt_chat/widgets/user_chat_card.dart';
 import 'package:flutt_chat/screens/chat_screen.dart';
