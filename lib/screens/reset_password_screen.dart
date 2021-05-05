@@ -4,7 +4,6 @@ import 'package:flutt_chat/widgets/animating_name.dart';
 import 'package:flutt_chat/widgets/custom_alert_dialog.dart';
 import 'package:flutt_chat/widgets/buttons/login_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutt_chat/services/auth_service.dart';
 import 'package:flutt_chat/widgets/text_fields/input_text_field.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

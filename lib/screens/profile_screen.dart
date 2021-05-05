@@ -5,6 +5,10 @@ import 'package:flutt_chat/services/firestore_service.dart';
 import 'package:flutt_chat/services/auth_service.dart';
 import 'package:flutt_chat/constants.dart';
 import 'package:flutt_chat/widgets/custom_alert_dialog.dart';
+import 'package:flutt_chat/bloc/photo/photo_bloc.dart';
+import 'package:flutt_chat/bloc/photo/photo_state.dart';
+import 'package:flutt_chat/bloc/resetPassword/reset_password_bloc.dart';
+import 'package:flutt_chat/bloc/resetPassword/reset_password_event.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
