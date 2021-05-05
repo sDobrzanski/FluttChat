@@ -2,7 +2,7 @@
 
 FluttChat is web app created with Flutter and Firebase. It allows users to communicate through internet.
 
-User can create an account by email, Google account or Facebook account
+User can create an account by email, Google or Facebook
 ![1](https://user-images.githubusercontent.com/44682121/115109988-558b8c00-9f79-11eb-9d65-bb4e99bbb02c.png)
 
 ![2](https://user-images.githubusercontent.com/44682121/115109963-2b39ce80-9f79-11eb-9edd-6fc7d73d3d5a.png)
