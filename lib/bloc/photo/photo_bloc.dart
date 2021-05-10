@@ -39,7 +39,6 @@ class PhotoBloc extends Bloc<PhotoEvent, PhotoState> {
 
   Stream<PhotoState> _mapChangePhotoToState(ChangePhoto event) async* {
     String url;
-    yield PhotoLoading();
     try {
       await _firestoreService.uploadToStorage(event.uid);
       await _firestoreService
@@ -48,7 +47,7 @@ class PhotoBloc extends Bloc<PhotoEvent, PhotoState> {
       if (url == null) {
         url = kEmptyUserPhoto;
       }
-      yield PhotoLoaded(url: url);
+      yield PhotoChanged(url: url);
     } catch (e) {
       yield PhotoError(error: 'Error: $e');
     }

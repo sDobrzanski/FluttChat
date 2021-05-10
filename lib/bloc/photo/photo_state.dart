@@ -16,6 +16,14 @@ class PhotoLoaded extends PhotoState {
   List<Object> get props => [url];
 }
 
+class PhotoChanged extends PhotoState {
+  final String url;
+  PhotoChanged({@required this.url});
+
+  @override
+  List<Object> get props => [url];
+}
+
 class PhotoError extends PhotoState {
   final String error;
   PhotoError({@required this.error});

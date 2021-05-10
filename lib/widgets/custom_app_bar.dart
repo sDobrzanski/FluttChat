@@ -10,6 +10,10 @@ import 'package:flutt_chat/bloc/authentication/authentication_event.dart';
 import 'package:flutt_chat/bloc/chatsStream/chats_stream_bloc.dart';
 import 'package:flutt_chat/bloc/chatsStream/chats_Stream_event.dart';
 
+import '../bloc/photo/photo_bloc.dart';
+import '../bloc/photo/photo_event.dart';
+import '../screens/profile_screen.dart';
+
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   final User user;
   CustomAppBar({this.user});
@@ -17,6 +21,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
     final authBloc = BlocProvider.of<AuthenticationBloc>(context);
     final usersBloc = BlocProvider.of<UsersStreamBloc>(context);
+    final photoBloc = BlocProvider.of<PhotoBloc>(context);
     final _chatsStreamBloc = BlocProvider.of<ChatsStreamBloc>(context);
     return AppBar(
       backgroundColor: Colors.purple[600],
@@ -53,7 +58,13 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                   size: 32,
                 ),
                 onPressed: () {
-                  Navigator.pushNamed(context, '/profile');
+                  photoBloc.add(LoadPhoto(uid: user.uid));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ProfileScreen(
+                                user: user,
+                              )));
                 }),
           ),
           Padding(

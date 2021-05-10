@@ -10,7 +10,6 @@ class FirestoreService {
   final _imageHelper = ImageHelper();
 
   Future<void> saveUser(String uid, String email) async {
-    //String name = email.substring(0, email.indexOf('@')); jakbym chcial obciac mail do @
     try {
       await _firestore
           .collection('Users')

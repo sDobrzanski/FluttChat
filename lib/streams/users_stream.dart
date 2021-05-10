@@ -18,7 +18,7 @@ class UsersStream extends StatelessWidget {
     final firestoreService = RepositoryProvider.of<FirestoreService>(context);
     final _messagesBloc = BlocProvider.of<MessagesBloc>(context);
     return StreamBuilder<QuerySnapshot>(
-      stream: stream, //_firestoreService.getUsers()
+      stream: stream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
